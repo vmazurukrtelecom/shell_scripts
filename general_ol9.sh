@@ -10,15 +10,17 @@
 ## supported also refs to https, i.e.
 ## config.vm.provision "shell", path: "https://example.com/provisioner.sh"
 #####
+## START
 start=`date +%s`
 echo "script name general_ol9.sh"
 echo "start time:"
 date
+## ADD HISTORY:
+grep -q 'HISTTIMEFORMAT' /etc/bashrc || printf 'export HISTTIMEFORMAT="%%y-%%m-%%d_%%H:%%M:%%S "\nexport HISTSIZE=100000\nexport HISTFILESIZE=1000000\n' | sudo tee -a /etc/bashrc
 ## UPDATE:
 sudo dnf -y update
 sudo dnf -y install oracle-epel-release-el9
 sudo dnf -y upgrade
-##
 ## OPTIONAL:
 sudo dnf -y install PackageKit-command-not-found bash-completion mc htop git curl screen net-tools #tcpdump iptraf-ng iftop 
 # sudo dnf config-manager --set-enabled ol9_codeready_builder
