@@ -22,7 +22,7 @@ sudo dnf -y update
 sudo dnf -y install oracle-epel-release-el9
 sudo dnf -y upgrade
 ## OPTIONAL:
-sudo dnf -y install PackageKit-command-not-found bash-completion mc htop git curl screen net-tools #tcpdump iptraf-ng iftop 
+sudo dnf -y install PackageKit-command-not-found bash-completion mc htop git curl screen net-tools tree #tcpdump iptraf-ng iftop ncdu
 # sudo dnf config-manager --set-enabled ol9_codeready_builder
 # sudo dnf install glibc-all-langpacks –y # langpacks-en
 #sudo dnf -y install mc unzip zstd pv neovim htop nethogs nload inxi lsof socat ncdu tmux
