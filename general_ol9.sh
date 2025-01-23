@@ -15,6 +15,18 @@ start=`date +%s`
 echo "script name general_ol9.sh"
 echo "start time:"
 date
+## SWAP:
+# fallocate -l 16G /swapfile
+# chmod 600 /swapfile
+# mkswap /swapfile
+# swapon /swapfile
+# findmnt --verify --verbose
+swapon --show
+sysctl -a | grep swappin
+# cp /etc/fstab /etc/fstab.bak
+# echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+cat /etc/fstab
+cat /proc/sys/vm/vfs_cache_pressure
 ## ADD HISTORY:
 grep -q 'HISTTIMEFORMAT' /etc/bashrc || printf 'export HISTTIMEFORMAT="%%y-%%m-%%d_%%H:%%M:%%S "\nexport HISTSIZE=100000\nexport HISTFILESIZE=1000000\n' | sudo tee -a /etc/bashrc
 ## UPDATE:
@@ -57,6 +69,22 @@ cat /etc/resolv.conf
 # cat /etc/resolv.conf
 # check VBoxClient installed (required gui)
 # VBoxClient --version
+## SELINUX:
+getenforce
+# setenforce 0
+# sudo sed -i 's/^SELINUX=enforcing/SELINUX=permissive/'
+## FIREWALL:
+firewall-cmd --state
+# firewall-cmd --add-service=https --permanent
+# firewall-cmd --permanent --zone=public --add-port=8080/tcp
+# firewall-cmd --list-all
+# firewall-cmd --reload
+##
+# dnf whatprovides ldapsearch
+# dnf install openldap-clients
+## CHECK IF NEEDS REBOOT
+needs-restarting -r
+#
 echo "finish time:"
 date
 ## runtime
