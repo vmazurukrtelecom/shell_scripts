@@ -72,7 +72,7 @@ cat /etc/resolv.conf
 ## SELINUX:
 getenforce
 # setenforce 0
-# sudo sed -i 's/^SELINUX=enforcing/SELINUX=permissive/'
+# sudo sed -i 's/^SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config
 ## FIREWALL:
 firewall-cmd --state
 # firewall-cmd --add-service=https --permanent
