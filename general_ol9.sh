@@ -6,9 +6,8 @@
 ## place this file "general_ol9.sh" at the location of the root Vagrantfile for your project
 ## add to Vagrantfile:
 ## config.vm.provision "shell", path: "general_ol9.sh", privileged: false
-###
 ## supported also refs to https, i.e.
-## config.vm.provision "shell", path: "https://example.com/provisioner.sh"
+## config.vm.provision "shell", path: "https://raw.githubusercontent.com/vmazurukrtelecom/shell_scripts/refs/heads/main/general_ol9.sh"
 #####
 ## START
 start=`date +%s`
@@ -90,6 +89,13 @@ date
 ## runtime
 end=`date +%s`
 runtime=$((end-start))
-echo "runtime=$runtime"
+echo "runtime=$runtime seconds"
 ## REF runtime: https://unix.stackexchange.com/a/52347
+##
+## ADDIT:
+## REBOOT via Vagrantfile:
+## add to Vagrantfile:
+# config.vm.provision "shell", reboot: true, inline: <<-SHELL
+# echo "rebooting!"
+# SHELL
 ## END
