@@ -3,9 +3,9 @@
 ## OS OracleLinux 9.5 tested
 ## ver20250127
 #####
-## place this file "general_ol9.sh" at the location of the root Vagrantfile for your project
+## place this file "general_ol.sh" at the location of the root Vagrantfile for your project
 ## add to Vagrantfile:
-## config.vm.provision "shell", path: "general_ol9.sh", privileged: false
+## config.vm.provision "shell", path: "general_ol.sh", privileged: false
 ## supported also refs to https, i.e.
 ## config.vm.provision "shell", path: "https://raw.githubusercontent.com/vmazurukrtelecom/shell_scripts/refs/heads/main/general_ol.sh"
 #####
