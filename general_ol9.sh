@@ -28,6 +28,8 @@ cat /etc/fstab
 cat /proc/sys/vm/vfs_cache_pressure
 ## ADD HISTORY:
 grep -q 'HISTTIMEFORMAT' /etc/bashrc || printf 'export HISTTIMEFORMAT="%%y-%%m-%%d_%%H:%%M:%%S "\nexport HISTSIZE=100000\nexport HISTFILESIZE=1000000\n' | sudo tee -a /etc/bashrc
+## add /usr/local/bin to the PATH globall
+echo 'export PATH=$PATH:/usr/local/bin' >> /etc/profile
 ## UPDATE:
 sudo dnf -y update
 sudo dnf -y install oracle-epel-release-el9
