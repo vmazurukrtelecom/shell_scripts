@@ -29,7 +29,7 @@ cat /proc/sys/vm/vfs_cache_pressure
 ## ADD HISTORY:
 grep -q 'HISTTIMEFORMAT' /etc/bashrc || printf 'export HISTTIMEFORMAT="%%y-%%m-%%d_%%H:%%M:%%S "\nexport HISTSIZE=100000\nexport HISTFILESIZE=1000000\n' | sudo tee -a /etc/bashrc
 ## add /usr/local/bin to the PATH globall
-echo 'export PATH=$PATH:/usr/local/bin' >> /etc/profile
+echo 'export PATH=$PATH:/usr/local/bin' | sudo tee -a /etc/profile
 ## UPDATE:
 sudo dnf -y update
 sudo dnf -y install oracle-epel-release-el9
@@ -38,10 +38,16 @@ sudo dnf -y upgrade
 sudo dnf -y install PackageKit-command-not-found bash-completion mc htop git curl screen net-tools tree nano #tcpdump iptraf-ng iftop ncdu
 # sudo dnf config-manager --set-enabled ol9_codeready_builder
 # sudo dnf install glibc-all-langpacks –y # langpacks-en
-#sudo dnf -y install mc unzip zstd pv neovim htop nethogs nload inxi lsof socat ncdu tmux
-#sudo dnf -y install bzip2-devel libffi-devel xz-devel xz-libs ncurses-devel sqlite-devel
-#sudo dnf -y install python3.11 python3.11-devel python3.11-test python3.11-idle python3.11-wheel
-#sudo dnf -y install python3.12 python3.12-devel python3.12-test python3.12-idle python3.12-wheel
+# sudo dnf -y install mc unzip zstd pv neovim htop nethogs nload inxi lsof socat ncdu tmux
+# sudo dnf -y install bzip2-devel libffi-devel xz-devel xz-libs ncurses-devel sqlite-devel
+#
+# sudo dnf -y install python3.11 python3.11-devel python3.11-test python3.11-idle python3.11-wheel
+# sudo dnf -y install python3.12 python3.12-devel python3.12-test python3.12-idle python3.12-wheel
+alternatives --list
+# alternatives --set /usr/bin/python python /usr/bin/python3.12
+# alternatives --set python3 /usr/bin/python3.12
+#
+# sudo dnf -y groupinstall "Development Tools"
 ## set timezone
 sudo timedatectl set-timezone Europe/Kyiv
 ## disable ipv6 permanently:
