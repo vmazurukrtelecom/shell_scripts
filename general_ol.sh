@@ -49,8 +49,10 @@ sudo dnf -y install PackageKit-command-not-found bash-completion mc htop git cur
 #
 # sudo dnf -y install python3.11 python3.11-devel python3.11-test python3.11-idle python3.11-wheel
 sudo dnf -y install python3.12 python3.12-devel python3.12-setuptools python3.12-six python3.12-wheel python3.12-pip
+sudo python3 -m pip install --upgrade pip
 alternatives --list
 python3 -V
+pip --version
 # alternatives --set /usr/bin/python python /usr/bin/python3.12
 # alternatives --set python3 /usr/bin/python3.12
 #
