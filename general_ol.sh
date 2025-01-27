@@ -89,8 +89,9 @@ cat /etc/resolv.conf
 # VBoxClient --version
 ## SELINUX:
 getenforce
-# setenforce 0
+# setenforce 0 #only current session
 sudo sed -i 's/^SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config
+getenforce
 ## FIREWALL:
 firewall-cmd --state
 # firewall-cmd --add-service=https --permanent
