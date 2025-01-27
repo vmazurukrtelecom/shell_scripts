@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 ## user without root:
 ## OS OracleLinux 9.5 tested
-## ver20250107
+## ver20250127
 #####
 ## place this file "general_ol9.sh" at the location of the root Vagrantfile for your project
 ## add to Vagrantfile:
 ## config.vm.provision "shell", path: "general_ol9.sh", privileged: false
 ## supported also refs to https, i.e.
-## config.vm.provision "shell", path: "https://raw.githubusercontent.com/vmazurukrtelecom/shell_scripts/refs/heads/main/general_ol9.sh"
+## config.vm.provision "shell", path: "https://raw.githubusercontent.com/vmazurukrtelecom/shell_scripts/refs/heads/main/general_ol.sh"
 #####
 ## START
 start=`date +%s`
-echo "script name general_ol9.sh"
+echo "script name general_ol.sh"
 echo "start time:"
 date
 RHEL_VER=$(rpm -E '%{rhel}')
@@ -45,7 +45,7 @@ sudo dnf -y install PackageKit-command-not-found bash-completion mc htop git cur
 # sudo dnf -y install bzip2-devel libffi-devel xz-devel xz-libs ncurses-devel sqlite-devel
 #
 # sudo dnf -y install python3.11 python3.11-devel python3.11-test python3.11-idle python3.11-wheel
-# sudo dnf -y install python3.12 python3.12-devel python3.12-test python3.12-idle python3.12-wheel
+sudo dnf -y install python3.12 python3.12-devel python3.12-test python3.12-idle python3.12-wheel
 alternatives --list
 # alternatives --set /usr/bin/python python /usr/bin/python3.12
 # alternatives --set python3 /usr/bin/python3.12
@@ -68,21 +68,26 @@ sudo nmcli con show
 # sudo nmcli connection up "Wired connection 1"
 # sudo nmcli conn modify "System eth1" ipv6.method "disabled"
 # sudo nmcli connection up "System eth1"
+# sudo nmcli conn modify "System eth0" ipv6.method "disabled"
+# sudo nmcli connection up "System eth0"
 ## disable DNS via DHCP (for docker image download)
-cat /etc/resolv.conf
+# cat /etc/resolv.conf
+##disable DNS via DHCP (for docker image download - failed via ipv6)
 # sudo nmcli conn modify "Wired connection 1" ipv4.ignore-auto-dns yes
 # sudo nmcli conn modify "Wired connection 1" ipv4.dns  "8.8.8.8,1.1.1.1"
 # sudo nmcli conn modify "System eth1" ipv4.ignore-auto-dns yes
 # sudo nmcli conn modify "System eth1" ipv4.dns  "8.8.8.8,1.1.1.1"
+sudo nmcli conn modify "System eth0" ipv4.ignore-auto-dns yes
+sudo nmcli conn modify "System eth0" ipv4.dns  "8.8.8.8,1.1.1.1"
 # sudo systemctl restart NetworkManager
 # sleep 5
-# cat /etc/resolv.conf
+cat /etc/resolv.conf
 # check VBoxClient installed (required gui)
 # VBoxClient --version
 ## SELINUX:
 getenforce
 # setenforce 0
-# sudo sed -i 's/^SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config
+sudo sed -i 's/^SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config
 ## FIREWALL:
 firewall-cmd --state
 # firewall-cmd --add-service=https --permanent
@@ -91,12 +96,34 @@ firewall-cmd --state
 # firewall-cmd --reload
 ##
 sudo dnf clean all
-##
+## 
 # dnf whatprovides ldapsearch
 # dnf install openldap-clients
+## ...
+## Docker:
+## ADDIT REFs:
+## https://badtry.net/docker-tutorial-dlia-novichkov-rassmatrivaiem-docker-tak-iesli-by-on-byl-ighrovoi-pristavkoi/
+## https://chrisjhart.com/TLDR-Docker-Ubuntu-2204/
+## https://docs.docker.com/engine/install/centos/
+sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo dnf -y update
+#sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo dnf install -y docker-ce docker-ce-cli containerd.io
+sudo usermod -aG docker $USER
+#usermod -aG docker vagrant
+#newgrp docker # to activate the changes to groups (without sudo !!!)
+#newgrp - docker # to activate the changes to groups (without sudo !!!)
+sudo groups $USER
+id
+sudo docker --version
+#sudo systemctl start docker.service
+#sudo systemctl enable docker.service
+#sudo systemctl enable containerd.service
 ## CHECK IF NEEDS REBOOT
 needs-restarting -r
 #
+df -h
+free -h
 echo "finish time:"
 date
 ## runtime
