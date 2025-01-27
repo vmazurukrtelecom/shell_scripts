@@ -25,16 +25,16 @@ echo "RHEL_VER=$RHEL_VER"
 # mkswap /swapfile
 # swapon /swapfile
 # findmnt --verify --verbose
-swapon --show
-sysctl -a | grep swappin
+# swapon --show
+# sysctl -a | grep swappin
 # cp /etc/fstab /etc/fstab.bak
 # echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 cat /etc/fstab
-cat /proc/sys/vm/vfs_cache_pressure
+# cat /proc/sys/vm/vfs_cache_pressure
 ## ADD HISTORY:
 grep -q 'HISTTIMEFORMAT' /etc/bashrc || printf 'export HISTTIMEFORMAT="%%y-%%m-%%d_%%H:%%M:%%S "\nexport HISTSIZE=100000\nexport HISTFILESIZE=1000000\n' | sudo tee -a /etc/bashrc
 ## add /usr/local/bin to the PATH globall
-echo 'export PATH=$PATH:/usr/local/bin' | sudo tee -a /etc/profile
+grep -q 'PATH:/usr/local/bin' /etc/profile || echo 'export PATH=$PATH:/usr/local/bin' | sudo tee -a /etc/profile
 ## UPDATE:
 sudo dnf -y update
 sudo dnf -y install oracle-epel-release-el$RHEL_VER
@@ -58,10 +58,10 @@ python3 -V
 ## set timezone
 sudo timedatectl set-timezone Europe/Kyiv
 ## disable ipv6 permanently:
-echo "net.ipv6.conf.all.disable_ipv6 = 1" | sudo tee -a /etc/sysctl.conf
-echo "net.ipv6.conf.default.disable_ipv6 = 1" | sudo tee -a /etc/sysctl.conf
-echo "net.ipv6.conf.lo.disable_ipv6 = 1" | sudo tee -a /etc/sysctl.conf
-echo "net.ipv6.conf.tun0.disable_ipv6 = 1" | sudo tee -a /etc/sysctl.conf
+grep -q 'net.ipv6.conf.all.disable_ipv6 = 1' /etc/sysctl.conf || echo "net.ipv6.conf.all.disable_ipv6 = 1" | sudo tee -a /etc/sysctl.conf
+grep -q 'net.ipv6.conf.default.disable_ipv6 = 1' /etc/sysctl.conf || echo "net.ipv6.conf.default.disable_ipv6 = 1" | sudo tee -a /etc/sysctl.conf
+grep -q 'net.ipv6.conf.lo.disable_ipv6 = 1' /etc/sysctl.conf || echo "net.ipv6.conf.lo.disable_ipv6 = 1" | sudo tee -a /etc/sysctl.conf
+grep -q 'net.ipv6.conf.tun0.disable_ipv6 = 1' /etc/sysctl.conf || echo "net.ipv6.conf.tun0.disable_ipv6 = 1" | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 ip a
 ## disable ipv6 
@@ -83,6 +83,7 @@ sudo nmcli con show
 # sudo nmcli conn modify "System eth1" ipv4.dns  "8.8.8.8,1.1.1.1"
 sudo nmcli conn modify "System eth0" ipv4.ignore-auto-dns yes
 sudo nmcli conn modify "System eth0" ipv4.dns  "8.8.8.8,1.1.1.1"
+sudo nmcli connection up "System eth0"
 # sudo systemctl restart NetworkManager
 # sleep 5
 cat /etc/resolv.conf
@@ -90,8 +91,8 @@ cat /etc/resolv.conf
 # VBoxClient --version
 ## SELINUX:
 getenforce
-# setenforce 0 #only current session
-sudo sed -i 's/^SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config
+sudo setenforce 0 #works only current session
+grep -q 'SELINUX=permissive' /etc/selinux/config || sudo sed -i 's/^SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config
 getenforce
 ## FIREWALL:
 firewall-cmd --state
@@ -116,14 +117,14 @@ sudo dnf -y update
 sudo dnf install -y docker-ce docker-ce-cli containerd.io
 sudo usermod -aG docker $USER
 #usermod -aG docker vagrant
-#newgrp docker # to activate the changes to groups (without sudo !!!)
-#newgrp - docker # to activate the changes to groups (without sudo !!!)
+#newgrp docker # to activate the changes to groups (without sudo !!!) - does not work
+#newgrp - docker # to activate the changes to groups (without sudo !!!) - does not work
 sudo groups $USER
 id
 sudo docker --version
 #sudo systemctl start docker.service
-#sudo systemctl enable docker.service
-#sudo systemctl enable containerd.service
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
 ## CHECK IF NEEDS REBOOT
 needs-restarting -r
 #
