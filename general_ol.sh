@@ -126,6 +126,15 @@ sudo docker --version
 #sudo systemctl start docker.service
 sudo systemctl enable docker.service
 sudo systemctl enable containerd.service
+sudo systemctl status docker.service
+# docker --version
+# docker run hello-world
+# docker ps -a
+# docker stop $(docker ps -a -q)   # stop all containers
+# docker rm $(docker ps -a -q)     # remove all containers
+# docker image list
+# docker image inspect hello-world:latest
+# docker image rm hello-world:latest
 ## CHECK IF NEEDS REBOOT
 needs-restarting -r
 #
