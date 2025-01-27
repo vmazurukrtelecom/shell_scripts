@@ -115,11 +115,12 @@ sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/dock
 sudo dnf -y update
 #sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo dnf install -y docker-ce docker-ce-cli containerd.io
-sudo usermod -aG docker $USER
-#usermod -aG docker vagrant
+## sudo usermod -aG docker $USER
+usermod -aG docker vagrant # need to be specified via script running as root
 #newgrp docker # to activate the changes to groups (without sudo !!!) - does not work
 #newgrp - docker # to activate the changes to groups (without sudo !!!) - does not work
-sudo groups $USER
+# sudo groups $USER
+sudo groups vagrant
 id
 sudo docker --version
 #sudo systemctl start docker.service
