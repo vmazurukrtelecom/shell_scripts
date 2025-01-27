@@ -14,6 +14,8 @@ start=`date +%s`
 echo "script name general_ol9.sh"
 echo "start time:"
 date
+RHEL_VER=$(rpm -E '%{rhel}')
+echo "RHEL_VER=$RHEL_VER"
 ## SWAP:
 # fallocate -l 16G /swapfile
 # chmod 600 /swapfile
@@ -32,9 +34,10 @@ grep -q 'HISTTIMEFORMAT' /etc/bashrc || printf 'export HISTTIMEFORMAT="%%y-%%m-%
 echo 'export PATH=$PATH:/usr/local/bin' | sudo tee -a /etc/profile
 ## UPDATE:
 sudo dnf -y update
-sudo dnf -y install oracle-epel-release-el9
+sudo dnf -y install oracle-epel-release-el$RHEL_VER
 sudo dnf -y upgrade
 ## OPTIONAL:
+sudo dnf makecache  
 sudo dnf -y install PackageKit-command-not-found bash-completion mc htop git curl screen net-tools tree nano #tcpdump iptraf-ng iftop ncdu
 # sudo dnf config-manager --set-enabled ol9_codeready_builder
 # sudo dnf install glibc-all-langpacks –y # langpacks-en
@@ -86,6 +89,8 @@ firewall-cmd --state
 # firewall-cmd --permanent --zone=public --add-port=8080/tcp
 # firewall-cmd --list-all
 # firewall-cmd --reload
+##
+sudo dnf clean all
 ##
 # dnf whatprovides ldapsearch
 # dnf install openldap-clients
