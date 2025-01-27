@@ -14,6 +14,9 @@ start=`date +%s`
 echo "script name general_ol.sh"
 echo "start time:"
 date
+## set exit if error (return <>0)
+set -e
+##
 RHEL_VER=$(rpm -E '%{rhel}')
 echo "RHEL_VER=$RHEL_VER"
 ## SWAP:
