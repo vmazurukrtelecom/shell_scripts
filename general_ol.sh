@@ -9,9 +9,11 @@
 ## supported also refs to https, i.e.
 ## config.vm.provision "shell", path: "https://raw.githubusercontent.com/vmazurukrtelecom/shell_scripts/refs/heads/main/general_ol.sh"
 #####
+echo "script name: general_ol.sh"
+echo 'current script text:'
+cat $0
 ## START
 start=`date +%s`
-echo "script name general_ol.sh"
 echo "start time:"
 date
 ## set exit if error (return <>0):
@@ -142,8 +144,6 @@ id
 # docker image inspect hello-world:latest
 # docker image rm hello-world:latest
 ##
-echo 'current script text:'
-cat $0
 ## CHECK IF NEEDS REBOOT
 needs-restarting -r
 #
