@@ -41,7 +41,7 @@ sudo dnf -y install oracle-epel-release-el$RHEL_VER
 sudo dnf -y upgrade
 ## OPTIONAL:
 sudo dnf makecache  
-sudo dnf -y install PackageKit-command-not-found bash-completion mc htop git curl screen net-tools tree nano #tcpdump iptraf-ng iftop ncdu
+sudo dnf -y install PackageKit-command-not-found bash-completion mc htop git curl screen net-tools tree nano # python3 tcpdump iptraf-ng iftop ncdu
 # sudo dnf config-manager --set-enabled ol9_codeready_builder
 # sudo dnf install glibc-all-langpacks –y # langpacks-en
 # sudo dnf -y install mc unzip zstd pv neovim htop nethogs nload inxi lsof socat ncdu tmux
@@ -49,12 +49,15 @@ sudo dnf -y install PackageKit-command-not-found bash-completion mc htop git cur
 #
 # sudo dnf -y install python3.11 python3.11-devel python3.11-test python3.11-idle python3.11-wheel
 # sudo dnf -y install python3.12 python3.12-devel python3.12-setuptools python3.12-six python3.12-wheel python3.12-pip
-sudo python3 -m pip install --upgrade pip
+echo 'system python version /usr/libexec/platform-python -V'
+/usr/libexec/platform-python -V
+# sudo python3 -m pip install --upgrade pip
 alternatives --list
 python3 -V
 pip --version
-# alternatives --set /usr/bin/python python /usr/bin/python3.12
+# alternatives --set /usr/bin/python python /usr/bin/python3.12 1
 # alternatives --set python3 /usr/bin/python3.12
+# 
 #
 # sudo dnf -y groupinstall "Development Tools"
 ## set timezone
@@ -115,20 +118,21 @@ sudo dnf clean all
 ## https://docs.docker.com/engine/install/centos/
 sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 sudo dnf -y update
-#sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-sudo dnf install -y docker-ce docker-ce-cli containerd.io
+# sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+# sudo dnf install -y docker-ce docker-ce-cli containerd.io
+# dnf list docker-ce --showduplicates
 ## sudo usermod -aG docker $USER
-usermod -aG docker vagrant # need to be specified via script running as root
+# usermod -aG docker vagrant # need to be specified via script running as root
 #newgrp docker # to activate the changes to groups (without sudo !!!) - does not work
 #newgrp - docker # to activate the changes to groups (without sudo !!!) - does not work
 # sudo groups $USER
 sudo groups vagrant
 id
-sudo docker --version
-#sudo systemctl start docker.service
-sudo systemctl enable docker.service
-sudo systemctl enable containerd.service
-sudo systemctl status docker.service
+# sudo docker --version
+# sudo systemctl start docker.service
+# sudo systemctl enable docker.service
+# sudo systemctl enable containerd.service
+# sudo systemctl status docker.service
 # docker --version
 # docker run hello-world
 # docker ps -a
@@ -137,6 +141,9 @@ sudo systemctl status docker.service
 # docker image list
 # docker image inspect hello-world:latest
 # docker image rm hello-world:latest
+##
+echo 'current script text:'
+cat $0
 ## CHECK IF NEEDS REBOOT
 needs-restarting -r
 #
