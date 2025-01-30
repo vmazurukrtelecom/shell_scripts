@@ -99,7 +99,8 @@ cat /etc/resolv.conf
 ## SELINUX:
 getenforce
 sudo setenforce 0 #works only current session
-grep -q 'SELINUX=permissive' /etc/selinux/config || sudo sed -i 's/^SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config
+# grep -q 'SELINUX=permissive' /etc/selinux/config || sudo sed -i 's/^SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config
+sudo sed -i -r '/^SELINUX=(permissive|enforcing)/s/SELINUX=(permissive|enforcing)/SELINUX=disabled/' /etc/selinux/config
 getenforce
 ## FIREWALL:
 firewall-cmd --state
