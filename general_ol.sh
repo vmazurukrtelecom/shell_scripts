@@ -58,7 +58,7 @@ echo 'system python version /usr/libexec/platform-python -V'
 # sudo python3 -m pip install --upgrade pip
 alternatives --list
 python3 -V
-pip --version
+pip3 -V
 # alternatives --set /usr/bin/python python /usr/bin/python3.12 1
 # alternatives --set python3 /usr/bin/python3.12
 # 
