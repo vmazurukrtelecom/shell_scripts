@@ -39,6 +39,8 @@ grep -q 'HISTTIMEFORMAT' /etc/bashrc || printf 'export HISTTIMEFORMAT="%%y-%%m-%
 echo 'add /usr/local/bin to the PATH globally'
 grep -q 'PATH:/usr/local/bin' /etc/profile || echo 'export PATH=$PATH:/usr/local/bin' | sudo tee -a /etc/profile
 # tail -n 1 /etc/profile
+# TODO: To ensure that all binaries is accessible via the sudo command Add the following line to the sudoers file:
+# Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin
 ## UPDATE:
 sudo dnf -y update
 sudo dnf -y install oracle-epel-release-el"$RHEL_VER"
