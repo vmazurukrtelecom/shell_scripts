@@ -169,7 +169,9 @@ date
 ## runtime
 end=`date +%s`
 runtime=$((end-start))
-echo "runtime=$runtime seconds"
+minutes=$((runtime / 60))
+seconds=$((runtime % 60))
+echo "runtime=$minutes minutes and $seconds seconds"
 ## REF runtime: https://unix.stackexchange.com/a/52347
 ##
 ## ADDIT:
