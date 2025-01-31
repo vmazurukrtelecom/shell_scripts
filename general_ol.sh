@@ -45,7 +45,7 @@ sudo dnf -y install oracle-epel-release-el"$RHEL_VER"
 sudo dnf -y upgrade
 ## OPTIONAL:
 # sudo dnf makecache  
-sudo dnf -y install PackageKit-command-not-found bash-completion mc htop git curl screen net-tools tree nano python3 python3-pip python3-wheel #tcpdump iptraf-ng iftop ncdu
+sudo dnf -y install PackageKit-command-not-found bash-completion mc htop git curl screen net-tools tree nano #python3 python3-pip python3-wheel #tcpdump iptraf-ng iftop ncdu
 # sudo dnf config-manager --set-enabled ol9_codeready_builder
 # sudo dnf install glibc-all-langpacks –y # langpacks-en
 # sudo dnf -y install mc unzip zstd pv neovim htop nethogs nload inxi lsof socat ncdu tmux
