@@ -10,8 +10,8 @@
 ## config.vm.provision "shell", path: "https://raw.githubusercontent.com/vmazurukrtelecom/shell_scripts/refs/heads/main/general_ol.sh"
 #####
 echo "script name: general_ol.sh"
-echo 'current script text:'
-cat $0
+# echo 'current script text:'
+# cat $0
 ## START
 start=`date +%s`
 echo "start time:"
@@ -31,19 +31,20 @@ echo "RHEL_VER=$RHEL_VER"
 # sysctl -a | grep swappin
 # cp /etc/fstab /etc/fstab.bak
 # echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
-cat /etc/fstab
+# cat /etc/fstab
 # cat /proc/sys/vm/vfs_cache_pressure
 ## ADD HISTORY:
 grep -q 'HISTTIMEFORMAT' /etc/bashrc || printf 'export HISTTIMEFORMAT="%%y-%%m-%%d_%%H:%%M:%%S "\nexport HISTSIZE=100000\nexport HISTFILESIZE=1000000\n' | sudo tee -a /etc/bashrc
 ## add /usr/local/bin to the PATH globall
 grep -q 'PATH:/usr/local/bin' /etc/profile || echo 'export PATH=$PATH:/usr/local/bin' | sudo tee -a /etc/profile
+echo PATH=$PATH
 ## UPDATE:
 sudo dnf -y update
 sudo dnf -y install oracle-epel-release-el$RHEL_VER
 sudo dnf -y upgrade
 ## OPTIONAL:
 sudo dnf makecache  
-sudo dnf -y install PackageKit-command-not-found bash-completion mc htop git curl screen net-tools tree nano # python3 tcpdump iptraf-ng iftop ncdu
+sudo dnf -y install PackageKit-command-not-found bash-completion mc htop git curl screen net-tools tree nano python3 python3-pip python3-wheel #tcpdump iptraf-ng iftop ncdu
 # sudo dnf config-manager --set-enabled ol9_codeready_builder
 # sudo dnf install glibc-all-langpacks –y # langpacks-en
 # sudo dnf -y install mc unzip zstd pv neovim htop nethogs nload inxi lsof socat ncdu tmux
@@ -83,25 +84,37 @@ sudo nmcli con show
 # sudo nmcli connection up "System eth0"
 ## disable DNS via DHCP (for docker image download)
 # cat /etc/resolv.conf
-##disable DNS via DHCP (for docker image download - failed via ipv6)
-# sudo nmcli conn modify "Wired connection 1" ipv4.ignore-auto-dns yes
-# sudo nmcli conn modify "Wired connection 1" ipv4.dns  "8.8.8.8,1.1.1.1"
+## disable DNS via DHCP (for docker image download - failed via ipv6)
+# second IF = System eth1
 # sudo nmcli conn modify "System eth1" ipv4.ignore-auto-dns yes
 # sudo nmcli conn modify "System eth1" ipv4.dns  "8.8.8.8,1.1.1.1"
-sudo nmcli conn modify "System eth0" ipv4.ignore-auto-dns yes
-sudo nmcli conn modify "System eth0" ipv4.dns  "8.8.8.8,1.1.1.1"
-sudo nmcli connection up "System eth0"
-# sudo systemctl restart NetworkManager
+##
+# Oracle Linux 8
+if [[ "$RHEL_VER" == "8" ]]; then
+  echo "Oracle Linux 8 detected. Applying OL8-specific configurations."
+  sudo nmcli conn modify "System eth0" ipv4.ignore-auto-dns yes
+  sudo nmcli conn modify "System eth0" ipv4.dns  "8.8.8.8,1.1.1.1"
+  sudo nmcli connection up "System eth0"
+# Oracle Linux 9
+elif [[ "$RHEL_VER" == "9" ]]; then
+  echo "Oracle Linux 9 detected. Applying OL9-specific configurations."
+  sudo nmcli conn modify "Wired connection 1" ipv4.ignore-auto-dns yes
+  sudo nmcli conn modify "Wired connection 1" ipv4.dns  "8.8.8.8,1.1.1.1"
+  sudo nmcli connection up "Wired connection 1"
+else
+  echo "Other Oracle Linux version. RHEL_VER=$RHEL_VER"
+fi
+sudo systemctl restart NetworkManager
 # sleep 5
 cat /etc/resolv.conf
 # check VBoxClient installed (required gui)
 # VBoxClient --version
 ## SELINUX:
 getenforce
-sudo setenforce 0 #works only current session
+# sudo setenforce 0 # works only current session
 # grep -q 'SELINUX=permissive' /etc/selinux/config || sudo sed -i 's/^SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config
 sudo sed -i -r '/^SELINUX=(permissive|enforcing)/s/SELINUX=(permissive|enforcing)/SELINUX=disabled/' /etc/selinux/config
-getenforce
+# getenforce
 ## FIREWALL:
 firewall-cmd --state
 # firewall-cmd --add-service=https --permanent
