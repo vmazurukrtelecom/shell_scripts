@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ## user without root:
 ## OS OracleLinux 9.5 tested
-## ver20250127
+## ver202501
 #####
 ## place this file "general_ol.sh" at the location of the root Vagrantfile for your project
 ## add to Vagrantfile:
