@@ -298,6 +298,23 @@ docker run hello-world
 
 # PLAY RECAP *********************************************************************************************************************************************************
 # localhost                  : ok=15   changed=3    unreachable=0    failed=1    
+#
+## RESULT in WEB http://IP/
+# Ansible AWX
+# ______________ 
+# <  AWX 17.1.0  >
+# -------------- 
+# \
+# \   ^__^
+# (oo)\_______
+# (__)      A )\
+# ||----w |
+# ||     ||
+#
+# Ansible Version
+# 2.9.18
+# Copyright 2019 Red Hat, Inc.
+##
 echo "finish time:"
 date
 ## runtime
