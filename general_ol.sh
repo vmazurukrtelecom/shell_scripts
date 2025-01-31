@@ -13,7 +13,7 @@ echo "script name: general_ol.sh"
 # echo 'current script text:'
 # cat $0
 ## START
-start=`date +%s`
+start=$(date +%s)
 echo "start time:"
 date
 ## set exit if error (return <>0):
@@ -41,7 +41,7 @@ grep -q 'PATH:/usr/local/bin' /etc/profile || echo 'export PATH=$PATH:/usr/local
 tail /etc/profile
 ## UPDATE:
 sudo dnf -y update
-sudo dnf -y install oracle-epel-release-el$RHEL_VER
+sudo dnf -y install oracle-epel-release-el"$RHEL_VER"
 sudo dnf -y upgrade
 ## OPTIONAL:
 # sudo dnf makecache  
@@ -167,7 +167,7 @@ free -h
 echo "finish time:"
 date
 ## runtime
-end=`date +%s`
+end=$(date +%s)
 runtime=$((end-start))
 minutes=$((runtime / 60))
 seconds=$((runtime % 60))
