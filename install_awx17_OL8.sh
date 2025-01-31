@@ -223,6 +223,22 @@ ansible-playbook -i inventory install.yml -vv
 docker ps -a
 docker images -a
 ##
+# [vagrant@localhost ~]$ docker ps -a
+# CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS                      PORTS                  NAMES
+# f9857e04b09d   ansible/awx:17.1.0   "/usr/bin/tini -- /u…"   51 seconds ago   Up 44 seconds               8052/tcp               awx_task
+# 23b342e6b88b   ansible/awx:17.1.0   "/usr/bin/tini -- /b…"   8 minutes ago    Up 44 seconds               0.0.0.0:80->8052/tcp   awx_web
+# fecef8ded0e5   redis                "docker-entrypoint.s…"   9 minutes ago    Up 44 seconds               6379/tcp               awx_redis
+# 20640123b4fc   postgres:12          "docker-entrypoint.s…"   9 minutes ago    Up 44 seconds               5432/tcp               awx_postgres
+# 784028388dd1   hello-world          "/hello"                 43 minutes ago   Exited (0) 43 minutes ago                          agitated_solomon
+# [vagrant@localhost ~]$ docker images -a
+# REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
+# hello-world   latest    74cc54e27dc4   9 days ago     10.1kB
+# redis         latest    4075a3f8c3f8   3 weeks ago    117MB
+# postgres      12        56fe80523f20   2 months ago   419MB
+# centos        8         5d0da3dc9764   3 years ago    231MB
+# ansible/awx   17.1.0    599918776cf2   3 years ago    1.41GB
+# [vagrant@localhost ~]$
+##
 ## CHECK USER:
 # docker exec -it awx_postgres /bin/bash
 # psql -U awx
