@@ -11,6 +11,8 @@
 ## place this file "general_ol9.sh" at the location of the root Vagrantfile for your project
 ## and add to Vagrantfile:
 ## config.vm.provision "shell", path: "install_zabbix.sh", privileged: true
+## OR:
+## config.vm.provision "shell", path: "https://raw.githubusercontent.com/vmazurukrtelecom/shell_scripts/refs/heads/main/install_zabbix.sh", privileged: true
 ###
 ## run provisioning on running machine:
 ## vagrant provision
