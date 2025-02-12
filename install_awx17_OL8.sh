@@ -25,7 +25,7 @@ start=$(date +%s)
 echo "start time:"
 date
 ##
-sudo dnf install python3 python3-pip python3-wheel
+sudo dnf -y install python3 python3-pip python3-wheel
 alternatives --list
 sudo alternatives --set python /usr/bin/python3
 sudo alternatives --list
