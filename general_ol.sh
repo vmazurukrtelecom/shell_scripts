@@ -49,6 +49,7 @@ sudo dnf -y upgrade
 # sudo dnf makecache  
 sudo dnf -y install PackageKit-command-not-found bash-completion mc htop git curl screen net-tools tree nano bind-utils #python3 python3-pip #tcpdump iptraf-ng iftop ncdu
 # sudo dnf config-manager --set-enabled ol9_codeready_builder
+# sudo dnf group install "Development Tools"
 # sudo dnf install glibc-all-langpacks –y # langpacks-en
 # sudo dnf -y install mc unzip zstd pv neovim htop nethogs nload inxi lsof socat ncdu tmux
 # sudo dnf -y install bzip2-devel libffi-devel xz-devel xz-libs ncurses-devel sqlite-devel
