@@ -47,7 +47,7 @@ sudo dnf -y install oracle-epel-release-el"$RHEL_VER"
 sudo dnf -y upgrade
 ## OPTIONAL:
 # sudo dnf makecache  
-sudo dnf -y install PackageKit-command-not-found bash-completion mc htop git curl screen net-tools tree nano #python3 python3-pip python3-wheel #tcpdump iptraf-ng iftop ncdu
+sudo dnf -y install PackageKit-command-not-found bash-completion mc htop git curl screen net-tools tree nano bind-utils #python3 python3-pip #tcpdump iptraf-ng iftop ncdu
 # sudo dnf config-manager --set-enabled ol9_codeready_builder
 # sudo dnf install glibc-all-langpacks –y # langpacks-en
 # sudo dnf -y install mc unzip zstd pv neovim htop nethogs nload inxi lsof socat ncdu tmux
@@ -60,7 +60,7 @@ echo 'system python version /usr/libexec/platform-python -V'
 # sudo python3 -m pip install --upgrade pip
 alternatives --list
 python3 -V
-pip3 -V
+# pip3 -V
 # alternatives --set /usr/bin/python python /usr/bin/python3.12 1
 # alternatives --set python3 /usr/bin/python3.12
 # 
@@ -101,9 +101,12 @@ if [[ "$RHEL_VER" == "8" ]]; then
 # Oracle Linux 9
 elif [[ "$RHEL_VER" == "9" ]]; then
   echo "Oracle Linux 9 detected. Applying OL9-specific configurations."
-  sudo nmcli conn modify "Wired connection 1" ipv4.ignore-auto-dns yes
-  sudo nmcli conn modify "Wired connection 1" ipv4.dns  "8.8.8.8,1.1.1.1"
-  sudo nmcli connection up "Wired connection 1"
+  #sudo nmcli conn modify "Wired connection 1" ipv4.ignore-auto-dns yes
+  #sudo nmcli conn modify "Wired connection 1" ipv4.dns  "8.8.8.8,1.1.1.1"
+  #sudo nmcli connection up "Wired connection 1"
+  sudo nmcli conn modify "eth0" ipv4.ignore-auto-dns yes
+  sudo nmcli conn modify "eth0" ipv4.dns  "8.8.8.8,1.1.1.1"
+  sudo nmcli connection up "eth0"
 else
   echo "Other Oracle Linux version. RHEL_VER=$RHEL_VER"
 fi
