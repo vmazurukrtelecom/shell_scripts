@@ -102,9 +102,9 @@ if [[ "$RHEL_VER" == "8" ]]; then
 # Oracle Linux 9
 elif [[ "$RHEL_VER" == "9" ]]; then
   echo "Oracle Linux 9 detected. Applying OL9-specific configurations."
-  #sudo nmcli conn modify "Wired connection 1" ipv4.ignore-auto-dns yes
-  #sudo nmcli conn modify "Wired connection 1" ipv4.dns  "8.8.8.8,1.1.1.1"
-  #sudo nmcli connection up "Wired connection 1"
+  sudo nmcli conn modify "Wired connection 1" ipv4.ignore-auto-dns yes
+  sudo nmcli conn modify "Wired connection 1" ipv4.dns  "8.8.8.8,1.1.1.1"
+  sudo nmcli connection up "Wired connection 1"
   sudo nmcli conn modify "eth0" ipv4.ignore-auto-dns yes
   sudo nmcli conn modify "eth0" ipv4.dns  "8.8.8.8,1.1.1.1"
   sudo nmcli connection up "eth0"
@@ -139,18 +139,18 @@ sudo dnf clean all
 ## https://badtry.net/docker-tutorial-dlia-novichkov-rassmatrivaiem-docker-tak-iesli-by-on-byl-ighrovoi-pristavkoi/
 ## https://chrisjhart.com/TLDR-Docker-Ubuntu-2204/
 ## https://docs.docker.com/engine/install/centos/
-sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-sudo dnf -y update
+# sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+# sudo dnf -y update
 # sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 # sudo dnf install -y docker-ce docker-ce-cli containerd.io
 # dnf list docker-ce --showduplicates
 ## sudo usermod -aG docker $USER
 # usermod -aG docker vagrant # need to be specified via script running as root
-#newgrp docker # to activate the changes to groups (without sudo !!!) - does not work
-#newgrp - docker # to activate the changes to groups (without sudo !!!) - does not work
-# sudo groups $USER
-sudo groups vagrant
-id
+# newgrp docker # to activate the changes to groups (without sudo !!!) - does not work
+# newgrp - docker # to activate the changes to groups (without sudo !!!) - does not work
+## sudo groups $USER
+# sudo groups vagrant
+# id
 # sudo docker --version
 # sudo systemctl start docker.service
 # sudo systemctl enable docker.service
